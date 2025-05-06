@@ -1,3 +1,12 @@
+/* src/app/globals.css */
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1d4ed8;
+  --color-secondary: #9333ea;
+  --spacing-unit: 1rem;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
