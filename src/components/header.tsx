@@ -1,5 +1,7 @@
 'use client'
+
 import Link from 'next/link';
+
 export default function Header() {
     return (
         <header className="bg-[var(--color-primary)] text-white p-4 shadow-md">
