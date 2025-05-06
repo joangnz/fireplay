@@ -4,7 +4,7 @@ import type { Game } from "../types/games.types";
 export default function GameCard({ game }: { game: Game }) {
     return (
         <Link href={`/game/${game.slug}`}>
-            <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-4">
+            <div className="rounded-xl shadow hover:shadow-lg transition p-4">
                 <img
                     src={game.background_image}
                     alt={game.name}
