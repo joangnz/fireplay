@@ -11,4 +11,5 @@ export interface GameDetails {
   released: string;
   developers: { name: string }[];
   genres: { name: string }[];
+  screenshots?: { image: string }[];
 }

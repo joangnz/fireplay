@@ -1,7 +1,11 @@
+import './footer.css';
+
+import Link from 'next/link';
+
 export default function Footer() {
     return (
-        <footer className="bg-gray-100 text-sm text-center py-4 mt-10 border-t">
-            <p>© {new Date().getFullYear()} Fireplay. Todos los derechos reservados.</p>
+        <footer>
+            <p>© {new Date().getFullYear()} <Link href="/">Fireplay</Link>. Todos los derechos reservados.</p>
         </footer>
     );
 }
