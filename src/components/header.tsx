@@ -12,7 +12,7 @@ export default function Header() {
     const [search, setSearch] = useState('');
 
     const handleSearchSubmit = (e: React.FormEvent) => {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault();
         if (search.trim()) {
             router.push(`/search?query=${encodeURIComponent(search)}`);
         }
