@@ -3,7 +3,7 @@ import GameCard from "../components/card";
 import { Game } from "@/types/games.types";
 
 export default async function HomePage() {
-  const games = await getSearchedGames("zelda");
+  const games = await getSearchedGames("");
 
   return (
     <section className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
