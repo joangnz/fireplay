@@ -3,11 +3,10 @@ import { GameDetails } from "../../../types/game-details.types";
 import GameMainInfo from "../../../components/game-main-info";
 import GameMainImages from "../../../components/game-main-images";
 import Rating from "../../../components/rating";
-export default async function GameDetailPage({ params }: {
-    params: {
-        slug: string
-    }
-}) {
+export default async function GameDetailPage(
+    props: { params: Promise<{ slug: string }> }
+) {
+    const params = await props.params;
     const game: GameDetails = await getGameDetails(params.slug);
     if (!game) return null;
     return (

@@ -2,7 +2,8 @@ import { getSearchedGames } from '../../lib/requests';
 import GameCard from '../../components/card';
 import { Game } from '@/types/games.types';
 
-export default async function SearchPage({ searchParams }: { searchParams: { query: string } }) {
+export default async function SearchPage(props: { searchParams: Promise<{ query: string }> }) {
+    const searchParams = await props.searchParams;
     const searchQuery = searchParams.query || '';
     const games: Game[] = searchQuery ? await getSearchedGames(searchQuery) : [];
 
