@@ -10,12 +10,23 @@ import './header.css';
 export default function Header() {
     const router = useRouter();
     const [search, setSearch] = useState('');
+    const [username, setUsername] = useState<string | null>(null);
+
+    useEffect(() => {
+        setUsername(localStorage.getItem('username'));
+    }, []);
 
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (search.trim()) {
             router.push(`/search?query=${encodeURIComponent(search)}`);
         }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('username');
+        setUsername(null);
+        window.location.reload();
     };
 
     return (
@@ -36,15 +47,24 @@ export default function Header() {
                     </button>
                 </form>
                 <nav>
-                    <Link href="/favorites" className="hover:underline">
+                    <Link href={username ? ("/favorites") : ("/favorites")} className="hover:underline">
                         Favoritos
                     </Link>
-                    <Link href="/cart" className="hover:underline">
+                    <Link href={username ? ("/cart") : ("/login")} className="hover:underline">
                         Carrito
                     </Link>
-                    <Link href="/login" className="hover:underline">
-                        Login
-                    </Link>
+                    {username ? (
+                        <>
+                            <span className="username">{username}</span>
+                            <a href="#" className="hover:underline" onClick={handleLogout}>
+                                Logout
+                            </a>
+                        </>
+                    ) : (
+                        <Link href="/login" className="hover:underline">
+                            Login
+                        </Link>
+                    )}
                 </nav>
             </div>
         </header>
