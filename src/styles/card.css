@@ -1,0 +1,13 @@
+.game-card {
+    position: relative;
+}
+
+.favorite-button {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 2rem;
+    height: 2rem;
+    background-color: yellow;
+    z-index: 2;
+}
