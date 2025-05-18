@@ -11,9 +11,10 @@ export async function POST(request: NextRequest) {
 
   const connection = await mysql.createConnection({
     host: "127.0.0.1",
+    port: 3306,
     user: "root",
     password: "",
-    database: "fireplay",
+    database: "fireplay_db",
   });
 
   const [rows] = await connection.execute(
