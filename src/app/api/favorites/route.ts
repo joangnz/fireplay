@@ -24,5 +24,5 @@ export async function GET(request: NextRequest) {
 
   await connection.end();
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ rows: rows });
 }
