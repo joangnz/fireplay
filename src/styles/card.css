@@ -8,6 +8,10 @@
     left: 5%;
     width: 2rem;
     height: 2rem;
-    background-color: yellow;
     z-index: 2;
+}
+
+.favorite-button.favorite svg {
+    fill: var(--color-blue-500);
+    stroke: var(--color-blue-500);
 }
