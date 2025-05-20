@@ -24,6 +24,10 @@ export async function loginUser(username: string, password: string) {
   }
 }
 
+export async function getFavoritesList(username: string) {
+  return (await axios.get("/api/favorites?username=" + username)).data.rows;
+}
+
 export async function toggleFavorite(
   username: string,
   game_id: number,
