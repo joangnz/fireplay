@@ -47,7 +47,7 @@ export default function Header() {
                     </button>
                 </form>
                 <nav>
-                    <Link href={username ? ("/favorites") : ("/favorites")} className="hover:underline">
+                    <Link href={username ? ("/favorites") : ("/login")} className="hover:underline">
                         Favoritos
                     </Link>
                     <Link href={username ? ("/cart") : ("/login")} className="hover:underline">
