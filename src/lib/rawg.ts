@@ -38,17 +38,9 @@ export async function getFavoriteGames(username: string) {
     const rawgUrl = `${API_URL}/games/${gameId}?key=${API_KEY}`;
     try {
       const { data } = await axios.get(rawgUrl);
+      data.favorite = true;
 
-      const game: Game = {
-        id: data.id,
-        slug: data.slug,
-        name: data.name,
-        background_image: data.background_image || "",
-        rating: data.rating || 0,
-        favorite: true,
-      };
-
-      favoriteGamesDetails.push(game);
+      favoriteGamesDetails.push(data as Game);
     } catch (error) {
       console.error(`Failed to fetch data for game ID ${gameId}:`, error);
     }
