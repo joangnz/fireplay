@@ -1,4 +1,4 @@
-import { getSearchedGames } from "../lib/requests";
+import { getSearchedGames } from "../lib/rawg";
 import GameCard from "../components/card";
 import { Game } from "@/types/games.types";
 

@@ -1,4 +1,4 @@
-import { getGameDetails } from "../../../lib/requests";
+import { getGameDetails } from "../../../lib/rawg";
 import { GameDetails } from "../../../types/game-details.types";
 import GameMainInfo from "../../../components/game-main-info";
 import GameMainImages from "../../../components/game-main-images";

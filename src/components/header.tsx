@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import $ from "jquery";
 
-import './header.css';
+import '../styles/header.css';
 
 export default function Header() {
     const router = useRouter();
