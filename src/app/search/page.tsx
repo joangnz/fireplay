@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react';
 import { use } from 'react';
 
+import { Game } from '@/types/games.types';
+
 import { getSearchedGames } from '../../lib/rawg';
 import GameCard from '../../components/card';
-import { Game } from '@/types/games.types';
+import Loading from './loading';
 
 interface SearchPageProps {
     searchParams: {
@@ -36,19 +38,19 @@ export default function SearchPage({ searchParams }: { searchParams: Promise<{ q
     }, [query]);
 
     return (
-        <section className="p-8">
+        <div>
             <h2>Búsqueda de {query}</h2>
             {loading ? (
-                <p className="text-center">Loading...</p>
+                <Loading></Loading>
             ) : games.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <section className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
                     {games.map((game: Game) => (
                         <GameCard key={game.id} game={game} />
                     ))}
-                </div>
+                </section>
             ) : (
                 <p className="text-center text-gray-500">No hay juegos que coincidan con tu búsqueda.</p>
             )}
-        </section>
+        </div>
     );
 }
