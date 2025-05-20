@@ -14,10 +14,11 @@ export async function getSearchedGames(query: string, username: string) {
     if (username) {
       const favoritesRes = (await axios.get("/api/favorites?username=" + username)).data.rows;
 
-      console.log(favoritesRes);
       favoritesRes.forEach((favoriteGame: any) => {
         data.results.forEach((game: Game) => {
-            game.favorite = favoriteGame.game_id == game.id ? true : false;
+            if (!game.favorite) {
+                game.favorite = favoriteGame.game_id == game.id ? true : false;
+            }
         });
       });
     }
