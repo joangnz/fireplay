@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     const [rows] = await connection.execute(sql, [username, game_id]);
   } else {
     const sql = `INSERT INTO users_favorites
-    VALUES (?, ?, CURRENT_TIMESTAMP);`;
+    VALUES ((SELECT user_id FROM users WHERE username = ?), ?, CURRENT_TIMESTAMP);`;
     const [rows] = await connection.execute(sql, [username, game_id]);
   }
 
