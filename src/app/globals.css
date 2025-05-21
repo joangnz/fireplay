@@ -43,3 +43,11 @@ a {
     color-scheme: dark;
   }
 }
+
+.hide {
+  display: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
