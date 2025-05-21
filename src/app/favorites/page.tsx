@@ -15,7 +15,7 @@ export default function FavoritesPage() {
 
     useEffect(() => {
         const storedUsername = localStorage.getItem('username') || '';
-        setUsername(storedUsername);
+        storedUsername ? setUsername(storedUsername) : window.location.href = '/login';
 
         getFavoriteGames(storedUsername).then((fetchedGames) => {
             setGames(fetchedGames);
