@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import $ from 'jquery';
 
 import { newPfp } from '@/lib/requests';
 
@@ -20,6 +21,11 @@ export default function Profile() {
         const storedProfilePic = localStorage.getItem('profilePic') || profilePic;
         setProfilePic(storedProfilePic);
     }, []);
+
+    const handleUsernameChange = (e: any) => {
+        const newUsername = $(e.currentTarget).val()
+        console.log(newUsername);
+    }
 
     const handleOverlayClick = () => {
         const fileInputElement = document.getElementById('pfp-file') as HTMLInputElement;
@@ -61,7 +67,7 @@ export default function Profile() {
                 </div>
             </div>
             <div id="username" className="col-span-2">
-                <h1 className='text-xl font-bold tracking-wide inline'>{username}</h1> <Edit className="inline pointer"></Edit>
+                <input className='text-xl font-bold tracking-wide inline' value={username} onChange={handleUsernameChange} /> <Edit className="inline pointer"></Edit>
             </div>
 
             <div className='w-full text-center col-span-3 flex grid grid-cols-3 col-gap-6'>
