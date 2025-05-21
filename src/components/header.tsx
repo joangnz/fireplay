@@ -55,7 +55,9 @@ export default function Header() {
                     </Link>
                     {username ? (
                         <>
-                            <span className="username">{username}</span>
+                            <Link href="/profile">
+                                <span className="username">{username}</span>
+                            </Link>
                             <a href="#" className="hover:underline" onClick={handleLogout}>
                                 Logout
                             </a>
