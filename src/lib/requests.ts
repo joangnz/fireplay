@@ -42,3 +42,12 @@ export async function toggleFavorite(
     return res;
   } catch (error: any) {}
 }
+
+export async function newPfp(formData: FormData) {
+  try {
+    const res = await axios.post("/api/user", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res;
+  } catch (error) {}
+}

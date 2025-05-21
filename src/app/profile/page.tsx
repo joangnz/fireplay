@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import $ from 'jquery';
+
+import { newPfp } from '@/lib/requests';
 
 import Edit from "../../../public/edit.svg";
-
 import "@/styles/profile.css";
 
 export default function Profile() {
@@ -38,19 +38,22 @@ export default function Profile() {
                 setProfilePic(reader.result as string);
             };
             reader.readAsDataURL(file);
+
+            const formData = new FormData();
+            formData.append('pfpFile', file);
+
+            try {
+                newPfp(formData);
+            } catch (error) {
+                
+            }
         }
     };
-
-    const submitNewPfp = (fileInput: any) => {
-
-    }
 
 
     return (
         <section className='main-info p-8 w-2/3 m-auto grid grid-cols-1 md:grid-cols-3 gap-6'>
-            <form action="/api/profile" className="hide">
-                <input type="file" name="pfp-file" id="pfp-file" accept='image/jpeg, image/png, image/jpg' onChange={handleFileChange} />
-            </form>
+            <input id="pfp-file" className="hide" type="file" name="pfp-file"  accept='image/jpeg, image/png, image/jpg' onChange={handleFileChange} />
             <div id="pfp-wrap">
                 <img src={profilePic} alt="Profile Picture" id="pfp" />
                 <div className="w-full h-full overlay flex" onClick={handleOverlayClick}>
