@@ -43,9 +43,16 @@ export async function toggleFavorite(
   } catch (error: any) {}
 }
 
+export async function changeUsername(username: string) {
+  try {
+    const res = await axios.post("api/user/name", { username });
+    return res;
+  } catch (error) {}
+}
+
 export async function newPfp(formData: FormData) {
   try {
-    const res = await axios.post("/api/user", formData, {
+    const res = await axios.post("/api/user/pfp", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return res;
