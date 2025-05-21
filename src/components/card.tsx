@@ -10,6 +10,7 @@ import '../styles/card.css';
 
 export default function GameCard({ game }: { game: Game }) {
     const [username, setUsername] = useState<string>("");
+    const [isFavorite, setIsFavorite] = useState<boolean>(game.favorite);
 
     useEffect(() => {
         const storedUsername = localStorage.getItem('username') || '';
@@ -17,19 +18,23 @@ export default function GameCard({ game }: { game: Game }) {
     });
 
     async function handleFavorite(game_id: number, isFavorite: boolean) {
+        if (!username) {
+            return window.location.href = '/login';
+        }
+        
         const res = await toggleFavorite(username, game_id, isFavorite);
         if (res && res.status == 200) {
-            console.log("WORKS");
+            setIsFavorite(!isFavorite);
         }
     }
 
     return (
         <Link href={`/game/${game.slug}`}>
             <div className="game-card rounded-xl shadow hover:shadow-lg transition p-4">
-                <div className={'favorite-button' + (game.favorite ? ' favorite' : '')}>
+                <div className={'favorite-button' + (isFavorite ? ' favorite' : '')}>
                     <Favorite onClick={(event: Event) => {
                         event.preventDefault();
-                        handleFavorite(game.id, !!game.favorite);
+                        handleFavorite(game.id, isFavorite);
                     }}></Favorite>
                 </div>
                 <img
