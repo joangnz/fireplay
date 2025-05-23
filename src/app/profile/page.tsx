@@ -47,6 +47,7 @@ export default function Profile() {
 
             const formData = new FormData();
             formData.append('pfpFile', file);
+            formData.append('username', username);
 
             try {
                 newPfp(formData);
