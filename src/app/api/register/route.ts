@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
   });
 
   const [rows] = await connection.execute(
-    "SELECT id FROM users WHERE username = ?",
+    "SELECT user_id FROM users WHERE username = ?",
     [username]
   );
   if ((rows as any[]).length > 0) {
