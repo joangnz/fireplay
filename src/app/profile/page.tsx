@@ -24,7 +24,6 @@ export default function Profile() {
 
     const handleUsernameChange = (e: any) => {
         const newUsername = $(e.currentTarget).val()
-        console.log(newUsername);
     }
 
     const handleOverlayClick = () => {
@@ -50,9 +49,11 @@ export default function Profile() {
             formData.append('username', username);
 
             try {
-                newPfp(formData);
+                newPfp(formData).then((res: any) => {
+                    setProfilePic(res.data.path);
+                    localStorage.setItem('profilePic', res.data.path);
+                });
             } catch (error) {
-                
             }
         }
     };
