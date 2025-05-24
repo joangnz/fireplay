@@ -5,6 +5,9 @@ import $ from 'jquery';
 
 import { changeUsername, newPfp, getPfp } from '@/lib/requests';
 
+import FavoritesPage from '../favorites/page';
+import Compras from '../../components/compras';
+
 import Edit from "../../../public/edit.svg";
 import "@/styles/profile.css";
 
@@ -105,7 +108,7 @@ export default function Profile() {
                 </div>
             </div>
             <div className='col-span-3'>
-
+                {selectedSection == 'favoritos' ? FavoritesPage() : selectedSection == 'compras' ? Compras() : ''}
             </div>
         </section>
     )
