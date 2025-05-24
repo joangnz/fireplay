@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 import bcrypt from "bcryptjs";
+import { connection_data } from "@/lib/connection";
 
 export async function POST(request: NextRequest) {
   const { username, password } = await request.json();
@@ -9,13 +10,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
   }
 
-  const connection = await mysql.createConnection({
-    host: "127.0.0.1",
-    port: 3306,
-    user: "root",
-    password: "",
-    database: "fireplay_db",
-  });
+  const connection = await mysql.createConnection(connection_data);
 
   const [rows] = await connection.execute(
     "SELECT user_id, password FROM users WHERE username = ?",

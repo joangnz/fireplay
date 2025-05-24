@@ -3,6 +3,37 @@ import { writeFile, mkdir, rm } from "fs/promises";
 import path from "path";
 import mysql from "mysql2/promise";
 import { randomBytes } from "crypto";
+import { connection_data } from "@/lib/connection";
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const username = searchParams.get("username");
+
+  if (!username) {
+    return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+  }
+
+  const connection = await mysql.createConnection(connection_data);
+
+  const [rows]: any[] = await connection.execute(
+    "SELECT pfp_route FROM users WHERE user_id = (SELECT user_id FROM users WHERE username = ?)",
+    [username]
+  );
+
+  await connection.end();
+
+  if ((rows).length != 1) {
+    await connection.end();
+    return NextResponse.json(
+      { error: "Couldn't find the specified user." },
+      { status: 409 }
+    );
+  }
+
+  let pfpRoute: string = rows[0].pfp_route;
+  
+  return NextResponse.json({ success: true, route: pfpRoute });
+}
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
@@ -32,13 +63,7 @@ export async function POST(req: NextRequest) {
 
   await writeFile(filePath, buffer);
 
-  const connection = await mysql.createConnection({
-    host: "127.0.0.1",
-    port: 3306,
-    user: "root",
-    password: "",
-    database: "fireplay_db",
-  });
+  const connection = await mysql.createConnection(connection_data);
 
   const [rows] = await connection.execute(
     "SELECT pfp_route FROM users WHERE user_id = (SELECT user_id FROM users WHERE username = ?)",
