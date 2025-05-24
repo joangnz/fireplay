@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export default function Profile() {
+export default function CartPage() {
     const [username, setUsername] = useState<string>("");
 
     useEffect(() => {
