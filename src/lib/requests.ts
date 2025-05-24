@@ -40,14 +40,21 @@ export async function toggleFavorite(
       isFavorite,
     });
     return res;
-  } catch (error: any) {}
+  } catch (error: any) { }
 }
 
-export async function changeUsername(username: string) {
+export async function changeUsername(username: string, newUsername: string) {
   try {
-    const res = await axios.post("api/user/name", { username });
+    const res = await axios.post("api/user/name", { username, newUsername });
     return res;
-  } catch (error) {}
+  } catch (error) { }
+}
+
+export async function getPfp(username: string) {
+  try {
+    const res = await axios.get("api/user/pfp?username=" + username);
+    return res;
+  } catch (error) { }
 }
 
 export async function newPfp(formData: FormData) {
@@ -56,5 +63,5 @@ export async function newPfp(formData: FormData) {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return res;
-  } catch (error) {}
+  } catch (error) { }
 }
