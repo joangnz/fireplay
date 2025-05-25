@@ -3,7 +3,7 @@ import axios from "axios";
 import { Game } from "@/types/games.types";
 import { GameDetails } from "@/types/game-details.types";
 
-import { getFavoritesList } from "./requests";
+import { getFavoritesList, getUserCart } from "./requests";
 
 const API_URL = process.env.NEXT_PUBLIC_RAWG_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_RAWG_API_KEY;
@@ -24,7 +24,7 @@ export async function getSearchedGames(query: string, username: string) {
         });
       });
     }
-  } catch (error) {}
+  } catch (error) { }
   return data.results;
 }
 
@@ -47,6 +47,27 @@ export async function getFavoriteGames(username: string) {
   }
 
   return favoriteGamesDetails;
+}
+
+export async function getCartGames(username: string) {
+  const cartRes = await getUserCart(username);
+  const cartGameIds = cartRes.map((game: any) => game.game_id);
+
+  const cartGamesDetails: Game[] = [];
+
+  for (const gameId of cartGameIds) {
+    const rawgUrl = `${API_URL}/games/${gameId}?key=${API_KEY}`;
+    try {
+      const { data } = await axios.get(rawgUrl);
+      cartGamesDetails.push(data as Game);
+    } catch (error) {
+      console.error(`Failed to fetch data for game ID ${gameId}:`, error);
+    }
+  }
+
+  console.log(cartGamesDetails);
+
+  return cartGamesDetails;
 }
 
 export async function getGameDetails(slug: string): Promise<GameDetails> {
