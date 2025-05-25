@@ -6,7 +6,6 @@ import $ from 'jquery';
 import { changeUsername, newPfp, getPfp } from '@/lib/requests';
 
 import FavoritesPage from '../favorites/page';
-import Compras from '../../components/compras';
 
 import Edit from "../../../public/edit.svg";
 import "@/styles/profile.css";
@@ -15,7 +14,6 @@ export default function Profile() {
     const [username, setUsername] = useState<string>("");
     const [newUsername, setNewUsername] = useState<string>("");
     const [profilePic, setProfilePic] = useState<string>("https://www.lavanguardia.com/peliculas-series/images/profile/2023/2/w300/hugJtkZDUXbKdEWXbl5rz3qrOMQ.jpg");
-    const [selectedSection, setSelectedSection] = useState<string>("favoritos");
     const [fileInput, setFileInput] = useState<File | null>(null);
 
     useEffect(() => {
@@ -96,19 +94,8 @@ export default function Profile() {
                 <input className='text-xl font-bold tracking-wide inline' value={newUsername} onChange={handleUsernameChange} /> <Edit className="inline pointer" onClick={handleUsernameSubmit}></Edit>
             </div>
 
-            <div className='w-full text-center col-span-3 flex grid grid-cols-3 col-gap-6'>
-                <div className={'selectField' + (selectedSection == 'favoritos' ? ' selected' : '')} onClick={() => setSelectedSection('favoritos')}>
-                    <h2>Favoritos</h2>
-                </div>
-                <div className={'selectField' + (selectedSection == 'compras' ? ' selected' : '')} onClick={() => setSelectedSection('compras')}>
-                    <h2>Compras</h2>
-                </div>
-                <div className={'selectField' + (selectedSection == 'reviews' ? ' selected' : '')} onClick={() => setSelectedSection('reviews')}>
-                    <h2>Reseñas</h2>
-                </div>
-            </div>
             <div className='col-span-3'>
-                {selectedSection == 'favoritos' ? FavoritesPage() : selectedSection == 'compras' ? Compras() : ''}
+                {FavoritesPage()}
             </div>
         </section>
     )
