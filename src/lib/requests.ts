@@ -1,4 +1,5 @@
 import axios from "axios";
+import { resolveMetadata } from "next/dist/lib/metadata/resolve-metadata";
 
 export async function registerUser(username: string, password: string) {
   try {
@@ -33,14 +34,21 @@ export async function getUserCart(username: string) {
 
 export async function addCartGame(username: string, game_id: number) {
   try {
-    const res = await axios.post('/api/cart', {username, game_id});
+    const res = await axios.post('/api/cart', { username, game_id });
   } catch (error) { }
 }
 
 export async function removeCartGame(username: string, game_id: number) {
   try {
     const res = await axios.delete(`/api/cart?username=${username}&game_id=${game_id}`);
-  } catch (error) {}
+  } catch (error) { }
+}
+
+export async function completePurchase(username: string) {
+  try {
+    const res = await axios.post('api/cart/buy', {username});
+    return res;
+  } catch (error) { }
 }
 
 export async function getFavoritesList(username: string) {
