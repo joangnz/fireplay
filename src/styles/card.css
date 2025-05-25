@@ -14,6 +14,6 @@
 }
 
 .favorite-button.favorite svg {
-    fill: var(--color-blue-500);
-    stroke: var(--color-blue-500);
+    fill: var(--color-yellow-500);
+    stroke: var(--color-yellow-500);
 }
