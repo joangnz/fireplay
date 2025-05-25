@@ -1,0 +1,33 @@
+import { NextRequest, NextResponse } from "next/server";
+import mysql from "mysql2/promise";
+import { connection_data } from "@/lib/connection";
+
+export async function GET(request: NextRequest) {
+    const { searchParams } = new URL(request.url);
+    const username = searchParams.get("username");
+
+    if (!username) {
+        return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
+    const connection = await mysql.createConnection(connection_data);
+
+    const [rows] = await connection.execute(
+        "SELECT user_id, game_id FROM users_games_cart WHERE user_id = (SELECT user_id FROM users WHERE username = ?)",
+        [username]
+    );
+
+    await connection.end();
+
+    return NextResponse.json({ rows: rows });
+}
+
+export async function POST(request: NextRequest) {
+    const {username, game_id} = await request.json();
+
+    const connection = await mysql.createConnection(connection_data);
+
+    await connection.end();
+
+    return NextResponse.json({});
+}
