@@ -25,6 +25,10 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const { username, game_id, isFavorite } = await request.json();
 
+  if (!username || !game_id) {
+    return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+  }
+
   const connection = await mysql.createConnection(connection_data);
 
   if (isFavorite) {

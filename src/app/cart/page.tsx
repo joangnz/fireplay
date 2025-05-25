@@ -30,7 +30,7 @@ export default function CartPage() {
             {loading ? (
                 <Loading></Loading>
             ) : cartGames.length > 0 ? (
-                <section className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <section className="p-8">
                     {cartGames.map((game) => (
                         <CartGame key={game.id} game={game} />
                     ))}

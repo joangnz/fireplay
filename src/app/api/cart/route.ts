@@ -23,11 +23,36 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-    const {username, game_id} = await request.json();
+    const { username, game_id } = await request.json();
 
     const connection = await mysql.createConnection(connection_data);
 
     await connection.end();
 
     return NextResponse.json({});
+}
+
+export async function DELETE(request: NextRequest) {
+    const { searchParams } = new URL(request.url);
+    const username = searchParams.get("username");
+    const game_id = searchParams.get("game_id");
+
+    if (!username || !game_id) {
+        return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
+    const connection = await mysql.createConnection(connection_data);
+
+    await connection.execute(
+        `
+        DELETE FROM users_games_cart
+        WHERE game_id = ?
+        AND user_id = (SELECT user_id FROM users WHERE username = ?)
+        `,
+        [game_id, username]
+    );
+
+    await connection.end();
+
+    return NextResponse.json({ success: true });
 }

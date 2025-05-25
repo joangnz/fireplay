@@ -31,6 +31,12 @@ export async function getUserCart(username: string) {
   } catch (error) { }
 }
 
+export async function removeCartGame(username: string, game_id: number) {
+  try {
+    const res = await axios.delete(`/api/cart?username=${username}&game_id=${game_id}`);
+  } catch (error) {}
+}
+
 export async function getFavoritesList(username: string) {
   try {
     return (await axios.get("/api/favorites?username=" + username)).data.rows;
