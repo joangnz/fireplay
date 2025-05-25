@@ -27,6 +27,31 @@ export async function POST(request: NextRequest) {
 
     const connection = await mysql.createConnection(connection_data);
 
+    const [rows] = await connection.execute(
+        `
+        SELECT * FROM users_games_cart
+        WHERE game_id = ?
+        AND user_id = (SELECT user_id FROM users WHERE username = ?)
+        `,
+        [game_id, username]
+    )
+
+    if ((rows as any[]).length > 0) {
+        await connection.end();
+        return NextResponse.json(
+            { error: "Game already in cart" },
+            { status: 409 }
+        );
+    }
+
+    await connection.execute(
+        `
+        INSERT INTO users_games_cart
+        VALUES ((SELECT user_id FROM users WHERE username = ?), ?, CURRENT_TIMESTAMP)
+        `,
+        [username, game_id]
+    );
+
     await connection.end();
 
     return NextResponse.json({});
