@@ -24,8 +24,17 @@ export async function loginUser(username: string, password: string) {
   }
 }
 
+export async function getUserCart(username: string) {
+  try {
+    const res = (await axios.get("/api/cart?username=" + username)).data.rows;
+    return res;
+  } catch (error) { }
+}
+
 export async function getFavoritesList(username: string) {
-  return (await axios.get("/api/favorites?username=" + username)).data.rows;
+  try {
+    return (await axios.get("/api/favorites?username=" + username)).data.rows;
+  } catch (error) { }
 }
 
 export async function toggleFavorite(
