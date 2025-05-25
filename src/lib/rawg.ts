@@ -65,8 +65,6 @@ export async function getCartGames(username: string) {
     }
   }
 
-  console.log(cartGamesDetails);
-
   return cartGamesDetails;
 }
 
