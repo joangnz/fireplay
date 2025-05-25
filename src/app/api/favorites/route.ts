@@ -25,13 +25,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const { username, game_id, isFavorite } = await request.json();
 
-  const connection = await mysql.createConnection({
-    host: "127.0.0.1",
-    port: 3306,
-    user: "root",
-    password: "",
-    database: "fireplay_db",
-  });
+  const connection = await mysql.createConnection(connection_data);
 
   if (isFavorite) {
     const sql = `DELETE FROM users_favorites
